@@ -1,5 +1,6 @@
 ### line2arrow.m Documentation
 
+[![View line2arrow.m on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/31473-line2arrow-m)
 
 This line2arrow.m function adds annotation arrows to the end of a line in a 2D Matlab plot.  Annotation arrows (created via the Matlab function `annotation('arrow', x, y)`) are positioned relative to figure coordinates, which can make them difficult to position correctly in terms of axis coordinates.  This function does the figure-to-axes coordinate conversion for you.
  
