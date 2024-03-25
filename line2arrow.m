@@ -150,28 +150,27 @@ end
 
 % Default options
 
+p = inputParser;
+
 if arrowexists
-    Opt.HeadLength = get(harrow, 'headlength');
-    Opt.HeadWidth  = get(harrow, 'headwidth');
-    Opt.HeadStyle  = get(harrow, 'headstyle');
-    Opt.Color      = get(h, 'color');
-    Opt.LineStyle  = get(h, 'linestyle');
-    Opt.LineWidth  = get(h, 'linewidth');
+    p.addParameter('HeadLength', get(harrow, 'headlength'));
+    p.addParameter('HeadWidth' , get(harrow, 'headwidth'));
+    p.addParameter('HeadStyle' , get(harrow, 'headstyle'));
 else
-    Opt.HeadLength = 10;
-    Opt.HeadWidth  = 10;
-    Opt.HeadStyle  = 'vback2';
-    Opt.Color      = get(h, 'color');
-    Opt.LineStyle  = get(h, 'linestyle');
-    Opt.LineWidth  = get(h, 'linewidth');
+    p.addParameter('HeadLength', 10);
+    p.addParameter('HeadWidth' , 10);
+    p.addParameter('HeadStyle' , 'vback2');
 end
+p.addParameter('Color'     , get(h, 'color'));
+p.addParameter('LineStyle' , get(h, 'linestyle'));
+p.addParameter('LineWidth' , get(h, 'linewidth'));
 
 % Override with user options
 
 if npv > 0
-    Opt = parsepv(Opt, varargin{:});
+    p.parse(varargin{:});
+    Opt = p.Results;
 end
-
 
 if arrowexists
     
