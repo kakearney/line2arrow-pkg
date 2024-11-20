@@ -1,4 +1,4 @@
-function varargout = line2arrow(h, varargin);
+function varargout = line2arrow(h, varargin)
 %LINE2ARROW Convert line to arrow
 %
 % line2arrow(h);
@@ -83,7 +83,7 @@ end
 % Apply arrow and add callback function
 
 for ih = 1:numel(h)
-    addarrow(h(ih), [], varargin);
+    addarrow(h(ih), [], varargin{:});
     addlistener(h(ih), 'Color',     'PostSet', @addarrow);
     addlistener(h(ih), 'LineStyle', 'PostSet', @addarrow);
     addlistener(h(ih), 'LineWidth', 'PostSet', @addarrow);
@@ -127,8 +127,6 @@ else
     end
 end
 
-npv = length(varargin);
-
 % Normalize figure
 
 hfig = ancestor(h, 'figure');
@@ -141,7 +139,7 @@ set(hfig, 'units', 'normalized');
 x = get(h, 'xdata');
 y = get(h, 'ydata');
 
-[xa, ya] = axescoord2figurecoord(x(end-1:end),y(end-1:end));
+[xa, ya] = axescoord2figurecoord(x(end-1:end),y(end-1:end),ancestor(h,'axes'));
 
 arrowexists = isappdata(h, 'arrow');
 if arrowexists
@@ -165,12 +163,10 @@ p.addParameter('Color'     , get(h, 'color'));
 p.addParameter('LineStyle' , get(h, 'linestyle'));
 p.addParameter('LineWidth' , get(h, 'linewidth'));
 
-% Override with user options
+% Set arrow properties based on defaults and user options
 
-if npv > 0
-    p.parse(varargin{:});
-    Opt = p.Results;
-end
+p.parse(varargin{:});
+Opt = p.Results;
 
 if arrowexists
     
